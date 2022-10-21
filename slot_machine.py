@@ -3,7 +3,7 @@ import numpy
 def slot_machine():
 
     class slots:
-        symbols = ["A", "B", "C", "D", "E", "F", "G"]
+        symbols = ["#", "@", "&", "0", "£", "+", "*"]
         symbol_1 = "A"
         symbol_2 = "A"
         symbol_3 = "A"
@@ -25,9 +25,14 @@ def slot_machine():
     while continue_playing == True:
 
         bet = int(input("How many credits do you wanna bet? "))
-        while (bet > credits):
-            print("You don't have enough credits for that bet.")
-            bet = int(input("Please, insert a valid number of credits: "))
+        while (bet > credits or bet <= 0):
+            if (bet <= 0):
+                bet = int(input("Really? Try again: "))
+            else:
+                w=["Are you stupid? You dont't have enought credits for that bet.", "Please, insert a valid number of credits.", "You're to poor for that bet.", "Are you dumb? Insert a valid number of credits!"]
+                s = numpy.random.choice(w)
+                print(s)
+                bet = int(input("Try again: "))
 
         our_slots.roll()
         print("\n --------- ")
@@ -54,7 +59,8 @@ def slot_machine():
             continue_playing = False
         else:
             check = input("Do you wanna keep playing? (y/n)) ")
-            if (check != "y"):
+            if (check == "n"):
                 continue_playing = False
+                print(f"\nYou ended up with {credits} credits. Congrats! (or I'm sorry if you're poor now)")
 
 slot_machine()
